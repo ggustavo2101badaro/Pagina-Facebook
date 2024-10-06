@@ -1,0 +1,67 @@
+const form = document.getElementById('formulario');
+const userName = document.getElementById('userName');
+
+form.addEventListener('submit', (event) =>{
+  event.preventDefault();
+
+  //CheckInputUserName();
+  //para 'pegar' o que o usuário digita
+  //deixei em comentário e a utilizei em checkForm  
+  CheckForm();
+
+})
+
+
+
+userName.addEventListener('blur',() =>{
+    CheckInputUserNameheckInputUserName();
+})
+
+function CheckInputUserName(){
+const userNameValue = userName.value;
+//agora conseguimos pegar o que o usuário digitou em 'userName'
+if (userNameValue=== '') {
+    errorInput(userName,'Preencha o espaço indicado.')
+}else{
+    const formItem = userName.parentElement;
+    formItem.className = 'formulario-content'
+
+    //acréscimo de minha autoria (porque uma parte do código não funcinava)
+    alert('Publicação realizada com sucesso!');
+}
+
+
+function CheckForm(){
+    CheckInputUserName();
+
+    //agora realizaremos uma validação(para que não mostre o aviso de 
+    //"Publicação realizada com sucesso!" sem que os dados estejam devidamente corretos)
+
+    const formItens = form.querySelectorAll('formulario-content');
+    //para pegar todos os elementos que tiverem a classe  formulario-content
+
+    const isValid = [...formItens].every((item) =>{
+        return item.className ==='formulario-content';
+         //para que seja verificado, elemento por elemento(no caso temos apenas 1 elemento), se 
+         // o input atende os requisitos exigidos
+
+    });
+
+    if(isValid){
+        alert('Publicação realizada com sucesso!');
+            }
+
+
+}
+
+function errorInput(input,message) {
+    const formItem = input.parentElement;
+    //para que o 'errorInput ' se direcione ao pai (que é 'formulario-content')
+    const textMessage = formItem.querySelector('a');
+
+
+    textMessage.innerText = message;
+
+    formItem.className = 'formulario-content error';
+}
+}
